@@ -62,7 +62,6 @@ class DecoderRNN(nn.Module):
             for i in range(self.max_len-1):
                 current_word = target_emb[:,i,:] # current target word
                 # now find context using attention mechanism
-                print(decoder_hidden)
                 context = self.attention(decoder_hidden[0].squeeze(0),encoder_output) # video features with an attention
                 decoder_input = torch.cat([current_word,context],dim=1) # concatenating encoder features and original captions
                 decoder_input = self.dropout(decoder_input).unsqueeze(1) # unsqueeze decoder inputs -> []
