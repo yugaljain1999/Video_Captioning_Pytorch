@@ -9,4 +9,6 @@ Video captioning on MSR-VTT Dataset
 * Download videos and captions json from above link in colab using !wget command as dataset size is ~4GB.
 * Make a folder 'TrainValVideo' and extract those videos in this folder.
 * Run python pre_process_videos.py to extract features of each video, it will save all features in data/feats/inception_v3 folder.
-* Run python train.py for training encoder-decoder rnn based model on MSR-VTT Dataset. For now inception_v3 pretrained model is used to extract features from videos, to use another pretrained model just change model name in line 64 in pre_process_video.py
+* Run python train.py for training encoder-decoder rnn based model on MSR-VTT Dataset. For now inception_v3 pretrained model is used to extract features from videos, to use another pretrained model just change model name in line 64 in pre_process_video.py.
+
+
