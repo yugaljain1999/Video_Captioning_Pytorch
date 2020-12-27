@@ -15,10 +15,10 @@ class EncoderRNN(nn.Module):
         self.n_layers = n_layers
         self.vidhid = nn.Linear(dim_video,dim_hidden) # dimension changed
         self.out = nn.LSTM(dim_hidden,dim_hidden,num_layers=1,batch_first=True,bidirectional=self.bidirectional,dropout = self.rnn_dropout)
-        #self._init_weights()
+        self._init_weights()
 
-    #def _init_weights(self):
-    #    nn.init.xavier_normal_(self.vidhid.weight)
+    def _init_weights(self):
+        nn.init.xavier_normal_(self.vidhid.weight)
     
         
     def forward(self,vid_features):
