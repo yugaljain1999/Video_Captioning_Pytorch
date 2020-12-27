@@ -49,7 +49,6 @@ def main():
     out['word_to_idx'] = wtoi
     out['videos'] = {'train':[],'validate':[],'test':[]}
     videos = json.load(open('train_val_videodatainfo.json','r'))['videos']
-    print(videos)
     for i in videos:
         out['videos'][i['split']].append(int(i['id']))
     # dump out and video_caption into json files
