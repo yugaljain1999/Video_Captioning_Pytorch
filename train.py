@@ -91,7 +91,7 @@ def train(loader, model, optimizer, lr_scheduler):
         #    init_cider_scorer('msr-all-idxs')
         #else:
         #    sc_flag = False
-        print('loader',loader)
+        
         for data in loader:
             #print(data)
             torch.cuda.synchronize()
@@ -102,7 +102,7 @@ def train(loader, model, optimizer, lr_scheduler):
             optimizer.zero_grad()
             #if not sc_flag:
             seq_probs = model(fc_feats,mode = 'train',targets=labels)
-            print(seq_probs.size())
+            
             #loss = criteria(seq_probs,labels[:,0:])
             crit = LanguageModelCriterion()
             loss = crit(seq_probs, labels[:, 1:], masks[:, 1:])
@@ -121,14 +121,15 @@ def train(loader, model, optimizer, lr_scheduler):
             train_loss = loss.item()
             torch.cuda.synchronize()
             iteration += 1
-
+            if iteration==38:
+                break
             print("iter %d (epoch %d), train_loss = %.6f" %
                       (iteration, epoch, train_loss))
             #else:
             #    print("iter %d (epoch %d), avg_reward = %.6f" %
             #          (iteration, epoch, np.mean(reward[:, 0])))
 
-        if epoch % 50 == 0:
+        if epoch % 2 == 0:
             model_path = os.path.join('checkpoints',
                                       'model_%d.pth' % (epoch))
             model_info_path = os.path.join('checkpoints',
@@ -142,7 +143,7 @@ def train(loader, model, optimizer, lr_scheduler):
 def main():
     dataset = VideoDataset('train')
     dataloader = DataLoader(dataset, batch_size=128)
-    print(dataloader)
+    
     #opt["vocab_size"] = dataset.get_vocab_size()
     #if opt["model"] == 'S2VTModel':
     #    model = S2VTModel(
