@@ -28,17 +28,14 @@ def extract_frames(vid,dir):
 
 def extract_features(model,load_image_func,video_dir,output_dir,model_name='inception_v3',frame_steps=40):
     model.eval()
-    print(output_dir)
     #if not os.path.isdir(output_dir):
     #    os.makedirs(output_dir)
     videos = glob.glob(os.path.join(video_dir,'*.mp4')) # list of all video names
     #print(videos)
     for id,video in enumerate(videos):
-        print(video)
         video_id =  video.split('/')[-1].split('.')[0] # just name of video not extension
         video_id = video_id.split('/')[-1]
         video_id = video_id.split('/')[-1]
-        print(video_id)
         dst = model_name + '_' + video_id # e.g inception_v3_4545454
         # extract frames 
         extract_frames(video,dst)
