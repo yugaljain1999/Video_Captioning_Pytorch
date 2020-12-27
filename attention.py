@@ -21,7 +21,6 @@ class Attention(nn.Module):
         # decoder_hidden.unsqueeze(1).repeat(1,seq_len,1) -> [batch_size,seq_len,dim] REMEMBER here repeat function is used to repeat dim=2 seq_len times to match with second dimension of encoder outputs so that concatenation is possible
         # after concatenating at dim = 2 -> [batch_size,seq_len,dim*2] 
         batch_size,seq_len,_ = encoder_outputs.size()
-        print(decoder_hidden.size(),encoder_outputs.size())
         context = torch.cat((decoder_hidden.unsqueeze(1).repeat(1,seq_len,1),encoder_outputs),dim = 2) # context [batch_size,seq_len,dim*2]
         context = context.view(-1,self.dim*2) # reshape tensors as next layer is linear which takes input of dimensions=2
         out = self.linear2(F.tanh(self.linear1(context))) # out -> [-1,1]
