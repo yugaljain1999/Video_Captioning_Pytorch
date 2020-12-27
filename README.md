@@ -12,4 +12,6 @@ Video captioning on MSR-VTT Dataset
 * Run python train.py for training encoder-decoder rnn based model on MSR-VTT Dataset. For now inception_v3 pretrained model is used to extract features from videos, to use another pretrained model just change model name in line 64 in pre_process_video.py.
 
 
+To run this experiment on colab - https://colab.research.google.com/drive/18dKysQVSICEDRZvIaI5bMdb-znG5lkKk?usp=sharing
+
 For any query feel free to raise an issue.
