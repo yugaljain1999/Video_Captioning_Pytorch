@@ -14,7 +14,7 @@ class EncoderRNN(nn.Module):
         self.input_dropout = nn.Dropout(input_dropout)
         self.n_layers = n_layers
         self.vidhid = nn.Linear(dim_video,dim_hidden) # dimension changed
-        self.out = nn.LSTM(dim_hidden,dim_hidden,num_layers=1,batch_first=True,bidirectional=self.bidirectional,dropout = self.rnn_dropout)
+        self.out = nn.LSTM(dim_hidden,dim_hidden,num_layers=2,batch_first=True,bidirectional=self.bidirectional,dropout = self.rnn_dropout)
         self._init_weights()
 
     def _init_weights(self):
@@ -46,7 +46,7 @@ class DecoderRNN(nn.Module):
         self.dropout = nn.Dropout(input_dropout)
         self.attention = Attention(self.dim_hidden)
 
-        self.rnn = nn.LSTM(self.dim_hidden + emb_dim,self.dim_hidden,num_layers=1,batch_first=True,dropout = self.rnn_dropout) # adding hidden dimensios and embedding dimensions
+        self.rnn = nn.LSTM(self.dim_hidden + emb_dim,self.dim_hidden,num_layers=2,batch_first=True,dropout = self.rnn_dropout) # adding hidden dimensios and embedding dimensions
         self.out = nn.Linear(dim_hidden,vocab_size) # final features extracted
 
     def forward(self,encoder_output,encoder_hidden,mode,captions=None):
