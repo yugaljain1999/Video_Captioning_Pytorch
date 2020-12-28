@@ -23,7 +23,7 @@ class Attention(nn.Module):
         batch_size,seq_len,_ = encoder_outputs.size()
         context = torch.cat((decoder_hidden.unsqueeze(1).repeat(1,seq_len,1),encoder_outputs),dim = 2) # context [batch_size,seq_len,dim*2]
         context = context.view(-1,self.dim*2) # reshape tensors as next layer is linear which takes input of dimensions=2
-        out = self.linear2(F.tanh(self.linear1(context))) # out -> [-1,1]
+        out = self.linear2(torch.tanh(self.linear1(context))) # out -> [-1,1]
         out = out.view(batch_size,seq_len) # out -> [batch_size,seq_len]
         alpha = F.softmax(out,dim=1) # alpha -> [batch_size,seq_len] alpha.unsqueeze(1) -> [batch_size,1,seq_len]
                                     #                                encoder_outputs -> [batch_size,seq_len,dim]
