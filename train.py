@@ -82,7 +82,7 @@ def train(loader, model, optimizer, lr_scheduler):
     model.train()
     #model = nn.DataParallel(model)
     for epoch in range(100):
-        lr_scheduler.step()
+       
 
         iteration = 0
         # If start self crit training
@@ -116,8 +116,10 @@ def train(loader, model, optimizer, lr_scheduler):
             #                   torch.from_numpy(reward).float().cuda())
             torch.autograd.set_detect_anomaly(True)
             loss.backward()
+           
             clip_grad_value_(model.parameters(), 5)
             optimizer.step()
+            lr_scheduler.step()
             train_loss = loss.item()
             torch.cuda.synchronize()
             iteration += 1
